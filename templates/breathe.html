@@ -1,0 +1,264 @@
+{% extends 'layout.html' %}
+
+{% block head_content %}
+<meta property="og:description" content="Learn more about KindEye" />
+<title>About KindEye</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+<style>
+    #breathingExercise {
+        text-align: center;
+    }
+
+    #circle {
+        width: 500px;
+        height: 500px;
+        position: relative;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 4s ease-in-out;
+    }
+
+    :root {
+        --circle-color: blue; /* default value */
+    }
+
+    #circle::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 500px;
+        height: 500px;
+        background-color: var(--circle-color);
+        transition: background-color 1000ms linear;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        filter: blur(200px);
+        opacity: 1;
+    }
+
+    #circle::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+
+    #breathText {
+        font-size: 1rem;
+        font-weight: 700;
+        color: white;
+        z-index: 2;
+        text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+    }
+    /* Add a soft rain effect */
+    @keyframes rain {
+        0% { top: -20px; opacity: 0.5; }
+        100% { top: 100%; opacity: 0; }
+    }
+
+    .rain {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        overflow: hidden;
+    }
+
+    .rain div {
+        position: absolute;
+        width: 2px;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.6);
+        animation: rain linear infinite;
+        animation-duration: 0.5s;
+    }
+
+    .rain div:nth-child(odd) {
+        left: 30%;
+        animation-duration: 0.8s;
+    }
+
+    .rain div:nth-child(even) {
+        left: 60%;
+        animation-duration: 0.7s;
+    }
+
+    @keyframes snow {
+        0% { top: -20px; opacity: 0.8; }
+        100% { top: 90%; opacity: 0; }
+    }
+
+    .snowflake {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        animation: snow 10s linear infinite;
+        overflow: hidden;
+    }
+
+
+    #snowcontainer{
+        overflow:hidden;
+    }
+
+    #snowcontainer .snowflake{
+        overflow: hidden;
+    }
+
+    .sunny::before {
+        background-color: orangered;
+    }
+
+    @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+
+</style>
+
+
+
+<script>
+    let isBreathing = false;
+    let breathCycle;
+    let current_state_id;
+
+    function stopBreathing(){
+        document.location.reload();
+        document.querySelector("#breathText").innerText = "Click to Start ";
+        const circle = document.getElementById("circle");
+        circle.style.transform = "scale(1)";
+        circle.style.width = "500px";
+        circle.style.length = "500px";
+        if(current_state_id){
+            (current_state_id);
+        }
+
+    }
+
+    function startBreathing() {
+        if (isBreathing) {
+            clearInterval(breathCycle);
+            stopBreathing();
+            isBreathing = false;
+            return;
+        }
+        isBreathing = true;
+        breathCycle = setInterval(breatheAnimation, 12000); // Full cycle every 12s
+        breatheAnimation(); // Start immediately
+    }
+
+    function breatheAnimation() {
+        const circle = document.getElementById("circle");
+        const text = document.getElementById("breathText");
+
+        text.innerText = "Breathe In...";
+        circle.style.transform = "scale(1.5)";
+        current_state_id = setTimeout(() => {
+            text.innerText = "Hold...";
+        }, 4000);
+
+        current_state_id = setTimeout(() => {
+            text.innerText = "Breathe Out...";
+            circle.style.transform = "scale(1)";
+        }, 6000);
+
+        current_state_id = setTimeout(() => {
+            text.innerText = "Hold...";
+        }, 10000);
+    }
+
+    function setmood(mood) {
+        var body = document.body;
+        // Remove any existing weather effects
+        const existingRain = document.getElementById('rainContainer');
+        const existingSnow = document.getElementById('snowContainer');
+        const existingSun = document.getElementById('sunContainer');
+        document.documentElement.style.setProperty('--circle-color', 'blue');
+        if (existingRain) existingRain.remove();
+        if (existingSnow) existingSnow.remove();
+        if (existingSun) existingSun.remove();
+
+        var is_dark_theme = body.className.includes("dark-theme");
+
+        if (mood === "rain") {
+            const rainContainer = document.createElement('div');
+            rainContainer.id = "rainContainer";
+            rainContainer.className = "rain";
+            for (let i = 0; i < 100; i++) {
+                const drop = document.createElement('div');
+                drop.style.left = Math.random() * 100 + "vw";
+                drop.style.animationDuration = (0.4 + Math.random() * 0.5) + "s";
+                if (!is_dark_theme) {
+                    drop.style.backgroundColor = "blue";
+                }
+                drop.classList.add("glow");
+                rainContainer.appendChild(drop);
+            }
+            body.appendChild(rainContainer);
+        } 
+        else if (mood === "snow") {
+            const snowContainer = document.createElement('div');
+            snowContainer.id = "snowContainer";
+            for (let i = 0; i < 50; i++) {
+                const flake = document.createElement('div');
+                flake.className = "snowflake";
+
+                flake.style.left = Math.random() * 90 + "vw";
+                flake.style.animationDuration = (5 + Math.random() * 5) + "s";
+                flake.style.top = Math.random() * -100 + "px";
+                if (!is_dark_theme) {
+                    flake.style.backgroundColor = "blue";
+                }
+                flake.classList.add("glow");
+                snowContainer.appendChild(flake);
+            }
+            body.appendChild(snowContainer);
+        } 
+        else if (mood === "sunny") {
+            document.documentElement.style.setProperty('--circle-color', 'orangered');
+        }
+        else if (mood === "tree") {
+            document.documentElement.style.setProperty('--circle-color', 'green');
+        }
+    }
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="container text-center my-5 fade-in">
+    <div id="breathingExercise" class="container my-5">
+        <div id="circle">
+            <div id="breathText" onclick="startBreathing()">Click to Start </div>
+        </div>
+    </div>
+    <div style="position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);">
+        <table style="font-size: 2rem;">
+            <tr>
+                <td onclick="setmood('sunny')" style="cursor: pointer; padding: 0 10px;"><i class="fa-solid fa-sun"></i></td>
+                <td onclick="setmood('tree')" style="cursor: pointer; padding: 0 10px;"><i class="fa-solid fa-tree"></i></td>
+                <td onclick="setmood('rain')" style="cursor: pointer; padding: 0 10px;"><i class="fa-solid fa-cloud-rain"></i></td>
+                <td onclick="setmood('snow')" style="cursor: pointer; padding: 0 10px;"><i class="fa-solid fa-snowflake"></i></td>
+            </tr>
+        </table>
+    </div>
+    
+
+</div>
+
+
+
+{% endblock %}

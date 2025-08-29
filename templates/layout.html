@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta property="og:title" content="KindEye" />
+    <meta property="og:image" content="/static/kindeye.png" />
+    <meta property="og:type" content="website" />
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
+    <link rel="preload" href="https://media.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif" as="image"> 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
+    <script>
+        var is_home = false; // this will be overwritten on home page only
+        
+        function update_theme(){
+            var isDarkTheme = localStorage.getItem("darkTheme") === "true";
+            const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+            var form_control = document.getElementsByClassName("form-control");
+            var a = document.getElementsByTagName("a");
+            var ul = document.getElementsByTagName("ul");
+            var cards = document.getElementsByClassName("card");
+            var signs_in = document.getElementsByClassName("google_sign_in");
+            var alerts = document.getElementsByClassName("alert");
+            var theads = document.getElementsByTagName("thead");
+            // append "select" objects to "a" list 
+            var select = document.getElementsByTagName("select");
+            var chat_container = document.getElementsByClassName("chat-container");
+            var user_messages = document.getElementsByClassName("user");
+            var bot_messages = document.getElementsByClassName("bot");
+            if (!localStorage.getItem("darkTheme")) {
+                if (darkThemeMq.matches) {
+                    isDarkTheme = true;
+                }
+            }
+            if (!window.matchMedia){ // for phone we just assume dark theme
+                isDarkTheme = true;
+            }
+            var body = document.body;
+            var theme_button = document.getElementById("theme_button");
+            var navbar = document.getElementsByClassName("navbar");
+            var site_icon = document.getElementById("site_icon");
+            var dropdown_items = document.getElementsByClassName("dropdown-item");
+            var p = document.getElementsByTagName("p");
+            var hs = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+            var tables = document.getElementsByTagName("table");
+            
+            if (isDarkTheme) {
+                if(signs_in.length){ 
+                    for(var i=0; i<signs_in.length; i++){
+                        if(signs_in[i].id == "sign_in"){
+                            sign_in.src = "/static/sign_in_dark.png";
+                        }
+                        else{
+                            signs_in[i].src = "/static/sign_up_dark.png";
+                        }
+                    }
+                }
+                body.classList.add("dark-theme");
+                for (var i = 0; i < form_control.length; i++) {
+                    form_control[i].classList.add("dark-theme");
+                }
+                for (var i = 0; i < a.length; i++) {
+                    a[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<select.length; i++){
+                    select[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<chat_container.length; i++){
+                    chat_container[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<user_messages.length; i++){
+                    user_messages[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<bot_messages.length; i++){
+                    bot_messages[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<ul.length; i++){
+                    ul[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<cards.length; i++){
+                    cards[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<dropdown_items.length; i++){
+                    dropdown_items[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<theads.length; i++){
+                    theads[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<navbar.length; i++){
+                    navbar[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<p.length; i++){
+                    p[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<hs.length; i++){
+                    hs[i].classList.add("dark-theme");
+                }
+                for(var i=0; i<tables.length; i++){
+                    tables[i].classList.add("dark-theme");
+                }
+            }
+            else{
+                if(signs_in.length){ 
+                    for(var i=0; i<signs_in.length; i++){
+                        if(signs_in[i].id == "sign_in"){
+                            sign_in.src = "/static/sign_in_light.png";
+                        }
+                        else{
+                            signs_in[i].src = "/static/sign_up_light.png";
+                        }
+                    }
+                }
+                body.classList.remove("dark-theme");
+                for (var i = 0; i < form_control.length; i++) {
+                    form_control[i].classList.remove("dark-theme");
+                }
+                for (var i = 0; i < a.length; i++) {
+                    a[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<chat_container.length; i++){
+                    chat_container[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<user_messages.length; i++){
+                    user_messages[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<bot_messages.length; i++){
+                    bot_messages[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<select.length; i++){
+                    select[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<ul.length; i++){
+                    ul[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<cards.length; i++){
+                    cards[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<dropdown_items.length; i++){
+                    dropdown_items[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<theads.length; i++){
+                    theads[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<navbar.length; i++){
+                    navbar[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<p.length; i++){
+                    p[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<hs.length; i++){
+                    hs[i].classList.remove("dark-theme");
+                }
+                for(var i=0; i<tables.length; i++){
+                    tables[i].classList.remove("dark-theme");
+                }
+            }
+            if(isDarkTheme){
+                theme_button.innerHTML = '<i class="fa-solid fa-moon dark-theme"></i>';
+                for(let i=0; i<alerts.length; i++){
+                    alerts[i].classList.add("dark-theme");
+                }
+
+                site_icon.src = "/static/kindeye.png";
+            } else {
+                theme_button.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                for(let i=0; i<alerts.length; i++){
+                    alerts[i].classList.remove("dark-theme");
+                }
+                
+                site_icon.src = "/static/kindeye.png";
+            }
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check user preference and set the initial theme
+            update_theme();
+        });
+        function toggleDarkTheme() {
+            isDarkTheme = document.body.classList.contains("dark-theme");
+            if(isDarkTheme){
+                document.body.classList.remove("dark-theme");
+            } else {
+                document.body.classList.add("dark-theme");
+            }
+            localStorage.setItem("darkTheme", !isDarkTheme);
+            update_theme();
+        }
+        const quotes = [
+            "You carry so much love in your heart. Give some to yourself too.",
+            "Sometimes the bravest thing you can do is keep going when you feel like giving up.",
+            "There is nothing ordinary about you. You are pure magic.",
+            "Healing doesn't mean the damage never existed. It means the damage no longer controls you.",
+            "Your energy introduces you before you even speak. Make it calm and kind.",
+            "You survived the days you thought you couldn't. That's strength.",
+            "You are allowed to outgrow people, places, and versions of yourself.",
+            "The light you are seeking has always been within you.",
+            "Growth is quietly choosing to heal, even when it hurts.",
+            "You are doing better than you think you are."
+        ];
+
+        function generateQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const quoteText = document.getElementById('quote-text');
+            quoteText.innerText = quotes[randomIndex];
+        }
+        document.addEventListener("DOMContentLoaded", function () {
+            document.body.classList.add("loaded");
+            give_alert();
+        });
+        function give_alert(){
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    document.getElementById("alert").innerHTML += `<div class="alert alert-{{category}} alert-dismissible fade show mb-0 d-flex justify-content-center align-items-center text-center" role="alert">{{message}}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        }
+    </script>
+    {% block head_content %}
+    {% endblock %}
+</head>
+<header>
+    <div id="alert"></div>
+    
+    <div class="container">
+        <nav class="navbar navbar-expand-lg" id="navbar_id">
+            <a class="navbar-brand" href="/"><img src="/static/kindeye.png" alt="logo" width="64" height="64" class="bi me-2" id="site_icon"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item" title="breathing link">
+                        <a href="/breath" class="nav-link" id=""><i class="fa-solid fa-lungs"></i></a>
+                    </li>
+                    <li class="nav-item" title="Toggle Theme">
+                        <a class="nav-link" href="#" onclick="toggleDarkTheme()" id="theme_button"></a>
+                    </li>
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{current_user.username}} <i class="fa-solid fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <!-- <li><a class="dropdown-item" href="/settings"><i class="fa-solid fa-gear"></i> Settings</a></li> -->
+                            <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-sign-out"></i> Logout</a></li>
+                        </ul>
+                    </li>                    
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login?next={{request.path}}">Login <i class="fa-solid fa-sign-in"></i></a>
+                        </li>
+                    {% endif %}
+                    
+                </ul>
+            </div>
+        </nav>       
+    </div>
+</header>
+<div id="loader-wrapper">
+    <img src="/static/kindeye.png" id="loader" alt="site logo">
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<div class="content">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,4 @@
+flask
+ollama
+flask-login
+flask-cors

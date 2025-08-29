@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+
+{% block head_content%}
+
+<meta property="og:description" content="" />
+<title> Kind👁</title>
+<script>
+    is_home = true; 
+</script>
+<style>
+    .rounded-2xl { border-radius: 1rem; }
+    .shadow-md { box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); }
+
+     /* Default button style */
+     .btn-primary {
+        background-color: #007bff; /* Blue color */
+        color: white;
+        border: 2px solid #007bff;
+        font-weight: bold;
+        padding: 12px 24px;
+        font-size: 16px;
+        text-transform: uppercase;
+        border-radius: 1rem;
+        transition: all 0.3s ease-in-out; /* Smooth transition */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Initial light shadow */
+    }
+
+    /* Hover effect */
+    .btn-primary:hover {
+        background-color: white; /* White background on hover */
+        color: #007bff; /* Blue text color on hover */
+        border: 2px solid #007bff; /* Border color stays the same */
+        transform: translateY(-4px); /* Slightly lift the button */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bigger shadow for depth */
+    }
+
+    /* Optional: Active state (when the button is clicked) */
+    .btn-primary:active {
+        transform: translateY(-2px); /* A smaller lift on click */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Return to normal shadow */
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Scale the image when hovered */
+    img:hover {
+        transform: scale(1.1); /* Scale the image by 10% */
+        transition: transform 0.3s ease-in-out;
+    }
+
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+    <h1 class="display-4 fw-bold  mb-4">Welcome to KindEye</h1>
+    <p class="lead  mb-5">24/7 emotional support that helps cure depression and feelings of loneliness.</p>
+
+    <ul class=" mb-5 text-start mx-auto" style="max-width: 500px;">
+      <li class="d-flex align-items-center mb-2"><span class="me-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big " aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg></span> Smart AI-based emotional replies</li>
+      <li class="d-flex align-items-center mb-2"><span class="me-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big " aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg></span> Built-in memory to understand you better</li>
+      <li class="d-flex align-items-center mb-2"><span class="me-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big " aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg></span> Soothing Voice replies</li>
+      <li class="d-flex align-items-center mb-2"><span class="me-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big " aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg></span> 1-month free trial for every user</li>
+    </ul>
+    <div class="d-flex justify-content-center gap-4">
+      <a href="/chat">
+          <button class="btn btn-primary px-5 py-2 rounded-2xl shadow-md">Get Started</button>
+      </a>
+      <a href="/about">
+        <button class="btn btn-primary px-5 py-2 rounded-2xl shadow-md">Learn More</button>
+      </a>
+  </div>
+  
+
+    
+    <div class="row mt-5 g-4">
+      <div class="col-sm-4 rounded-2xl">
+        <img src="/static/listen.png" class="img-fluid rounded-2xl glow" alt="Listening">
+      </div>
+      <div class="col-sm-4 rounded-2xl">
+        <img src="/static/speak.png" class="img-fluid rounded-2xl glow" alt="Speaking">
+      </div>
+      <div class="col-sm-4 rounded-2xl">
+        <img src="/static/support.png" class="img-fluid rounded-2xl glow" alt="Support">
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <h2 class=" fw-bold mb-4">Choose Your Plan</h2>
+      <div class="row g-4">
+        <div class="col-sm-4">
+          <div class=" p-4 rounded-2xl shadow-md ">
+            <h3 class=" fw-semibold mb-2">Weekly Plan</h3>
+            <p class="mb-3  ">₹99 / week</p>
+            <p class="text-sm ">Perfect for short-term emotional support.</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class=" p-4 rounded-2xl shadow-md ">
+            <h3 class=" fw-semibold mb-2">Monthly Plan</h3>
+            <p class=" mb-3">₹299 / month</p>
+            <p class="text-sm  ">Best value with flexibility and full features.</p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class=" p-4 rounded-2xl shadow-md ">
+            <h3 class=" fw-semibold mb-2">Yearly Plan</h3>
+            <p class=" mb-3 ">₹2499 / year</p>
+            <p class="text-sm ">Long-term care and emotional growth.</p>
+          </div>
+        </div>
+      </div>
+      <p class="mt-4  fst-italic small blue-text">*All plans start with a 1-month free trial. Cancel anytime.</p>
+    </div>
+</div>
+</body>
+{% endblock %}
